@@ -11,9 +11,7 @@ GAMES_PER_TASK   = 250 # Total games to play per workload
 REPORT_RATE      = 5  # Games played for each upload cycle
 
 COMPILATION_FLAGS = {
-    'ETHEREAL' : [],   # Custom makefile flags for Ethereal
-    'LASER'    : [],   # Custom makefile flags for Laser
-    'WEISS'    : [],   # Custom makefile flags for Weiss
+    'FABCHESS' : [],   # Custom makefile flags for FabChess
 };
 
 

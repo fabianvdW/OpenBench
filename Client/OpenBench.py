@@ -92,6 +92,7 @@ def getEngine(data):
     print('Engine      :', data['name'])
     print('Commit      :', data['sha'])
     print('Source      :', source)
+	print('Exe		   :', exe)
 
     # Extract and delete the zip file
     getFile(source, name + '.zip')
@@ -100,20 +101,22 @@ def getEngine(data):
     os.remove(name + '.zip')
 
     # Build Engine using provided gcc and PGO flags
+	env = os.environ.copy()
+	print("Env RUSTFLAGS	:", env['RUSTFLAGS'])
+	env['RUSTFLAGS'] = '-C target-cpu=native'
     subprocess.Popen(
-        ['make', 'EXE={0}'.format(exe)],
-        cwd='tmp/{0}/src/'.format(unzipname)).wait()
+        ['cargo', 'build', '--release'],
+        cwd='tmp/{0}/'.format(unzipname), env=env).wait()
 
     # Create the Engines directory if it does not exist
     if not os.path.isdir('Engines'):
         os.mkdir('Engines')
 
     # Move the compiled engine
-    if os.path.isfile('tmp/{0}/src/{1}'.format(unzipname, exe)):
-        os.rename('tmp/{0}/src/{1}'.format(unzipname, exe), 'Engines/{0}'.format(exe))
-
-    elif os.path.isfile('tmp/{0}/src/{1}'.format(unzipname, name)):
-        os.rename('tmp/{0}/src/{1}'.format(unzipname, name), 'Engines/{0}'.format(exe))
+    if os.path.isfile('tmp/{0}/target/release/fabchess.exe'.format(unzipname)):
+        os.rename('tmp/{0}/target/release/fabchess.exe'.format(unzipname), 'Engines/{0}'.format(exe))
+    elif os.path.isfile('tmp/{0}/target/release/fabchess'.format(unzipname)):
+        os.rename('tmp/{0}/target/release/fabchess'.format(unzipname), 'Engines/{0}'.format(exe))
 
     # Cleanup the unzipped zip file
     shutil.rmtree('tmp')

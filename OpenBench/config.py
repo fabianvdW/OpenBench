@@ -3,7 +3,7 @@
 # for the Cutechess binary and DLLs, as well as any of the books
 # which are being used in the testing framework. The main OpenBench
 # repo should suffice, but new books require this to be redirected.
-FRAMEWORK_REPO_URL = 'http://github.com/AndyGrant/OpenBench/'
+FRAMEWORK_REPO_URL = 'https://github.com/fabianvdW/OpenBench'
 
 FRAMEWORK_DEFAULTS = {
 
@@ -13,7 +13,7 @@ FRAMEWORK_DEFAULTS = {
         'framework'   : FRAMEWORK_REPO_URL,
 
         # Email of OpenBench instance owner
-        'serveradmin' : 'andrew@grantnet.us',
+        'serveradmin' : 'fabianvonderwarth@gmail.com',
 
         # SPRT Elo bounds and type I/II errors
         'sprt' : {
@@ -28,41 +28,16 @@ FRAMEWORK_DEFAULTS = {
         'engines'     : {
             'Ethereal' : {
                 'proto'     : 'uci',
-                'nps'       : 1500000,
-                'name'      : 'Ethereal',
-                'source'    : 'https://github.com/AndyGrant/Ethereal',
+                'nps'       : 750000,
+                'name'      : 'FabChess',
+                'source'    : 'https://github.com/fabianvdW/FabChess',
+				'default'	: True,
                 'testmodes' : {
                     'stc'     : { 'threads' : 1, 'hash' :   8, 'timecontrol' : '10.0+0.1' },
                     'ltc'     : { 'threads' : 1, 'hash' :  64, 'timecontrol' : '60.0+0.6' },
-                    'smpstc'  : { 'threads' : 8, 'hash' :  64, 'timecontrol' : '5.0+0.05' },
-                    'smpltc'  : { 'threads' : 8, 'hash' : 256, 'timecontrol' : '20.0+0.2' },
+                    'smpstc'  : { 'threads' : 4, 'hash' :  64, 'timecontrol' : '5.0+0.05' },
+                    'smpltc'  : { 'threads' : 4, 'hash' : 256, 'timecontrol' : '20.0+0.2' },
                  },
-            },
-
-            'Laser' : {
-                'proto'   : 'uci',
-                'nps'     : 625000,
-                'name'    : 'Laser',
-                'source'  : 'https://github.com/jeffreyan11/uci-chess-engine',
-                'testmodes' : {
-                    'stc'     : { 'threads' : 1, 'hash' :   8, 'timecontrol' : '10.0+0.1' },
-                    'ltc'     : { 'threads' : 1, 'hash' :  64, 'timecontrol' : '60.0+0.6' },
-                    'smpstc'  : { 'threads' : 8, 'hash' :  64, 'timecontrol' : '5.0+0.05' },
-                    'smpltc'  : { 'threads' : 8, 'hash' : 256, 'timecontrol' : '20.0+0.2' },
-                 },
-            },
-
-            'Weiss' : {
-                'proto'   : 'uci',
-                'nps'     : 4000000,
-                'name'    : 'Weiss',
-                'source'  : 'https://github.com/TerjeKir/weiss',
-                'testmodes' : {
-                    'stc'     : { 'threads' : 1, 'hash' :  32, 'timecontrol' : '10.0+0.1' },
-                    'ltc'     : { 'threads' : 1, 'hash' : 128, 'timecontrol' : '60.0+0.6' },
-                    'smpstc'  : { 'threads' : 8, 'hash' : 128, 'timecontrol' : '5.0+0.05' },
-                    'smpltc'  : { 'threads' : 8, 'hash' : 512, 'timecontrol' : '20.0+0.2' },
-                },
             },
         },
 
