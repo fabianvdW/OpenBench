@@ -358,8 +358,6 @@ def approveTest(request, id):
 
         # Ensure cross verification is used, except for the site admin
         test = Test.objects.get(id=id)
-        if test.author == profile.user.username and not profile.user.is_superuser:
-            raise Exception('Cross Approval is Required')
 
         # Approve the provided test
         if test.approved:

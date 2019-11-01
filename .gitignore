@@ -5,3 +5,4 @@ Client/*
 !Client/cleanup.sh
 OpenBench/migrations/*
 db.sqlite3
+Startup/*

@@ -26,7 +26,7 @@ FRAMEWORK_DEFAULTS = {
         # NPS value, which is used to normalize speed across all workers.
 
         'engines'     : {
-            'Ethereal' : {
+            'FabChess' : {
                 'proto'     : 'uci',
                 'nps'       : 750000,
                 'name'      : 'FabChess',
