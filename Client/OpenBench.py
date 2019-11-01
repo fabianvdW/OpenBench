@@ -6,8 +6,8 @@ import shutil, subprocess, requests, zipfile, os, math, json
 
 ## Configuration
 HTTP_TIMEOUT   = 30   # Timeout in seconds for web requests
-GAMES_PER_TASK = 1000 # Total games to complete for each workload
-REPORT_RATE    = 25   # Games per upload. Must divide GAMES_PER_TASK
+GAMES_PER_TASK = 10000 # Total games to complete for each workload
+REPORT_RATE    = 5   # Games per upload. Must divide GAMES_PER_TASK
 
 # Run from any location ...
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
@@ -105,7 +105,7 @@ def getEngine(data):
     print("Env RUSTFLAGS	:", env['RUSTFLAGS'])
     env['RUSTFLAGS'] = '-C target-cpu=native'
     subprocess.Popen(
-        ['cargo', 'build', '--release'],
+        ['cargo', 'build', '--release', '--bin', 'fabchess'],
         cwd='tmp/{0}/'.format(unzipname), env=env).wait()
 
     # Create the Engines directory if it does not exist
@@ -175,7 +175,7 @@ def getCutechessCommand(data, scalefactor):
     generalFlags = (
         '-repeat'
         ' -srand ' + str(int(time.time())) +
-        ' -resign movecount=3 score=400'
+        ' -resign movecount=3 score=800'
         ' -draw movenumber=40 movecount=8 score=10'
         ' -variant ' + variant +
         ' -concurrency ' + str(int(math.floor(THREADS / max(devthreads, basethreads)))) +
@@ -222,10 +222,8 @@ def singleCoreBench(name, outqueue):
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
         ).communicate()
-
         # Split line by line after decoding
         data = data.decode('ascii').strip().split('\n')
-
         # Parse and dump results into queue
         bench = int(data[-2].split()[-1])
         nps   = int(data[-1].split()[-1])
@@ -256,11 +254,11 @@ def getBenchSignature(engine):
     bench = [f[0] for f in data]
     nps   = [f[1] for f in data]
     avg   = sum(nps) / len(nps)
-
-    # All benches should be the same
+	
+	# All benches should be the same
     if (len(set(bench)) > 1):
+        print("Benches have different values")
         return (0, 0)
-
     # Log and return computed bench and speed
     print ('Bench for {0} is {1}'.format(engine['name'], bench[0]))
     print ('NPS   for {0} is {1}'.format(engine['name'], int(avg)))

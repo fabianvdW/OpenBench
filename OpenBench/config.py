@@ -3,7 +3,7 @@
 # for the Cutechess binary and DLLs, as well as any of the books
 # which are being used in the testing framework. The main OpenBench
 # repo should suffice, but new books require this to be redirected.
-FRAMEWORK_REPO_URL = 'https://github.com/fabianvdW/OpenBench'
+FRAMEWORK_REPO_URL = 'https://github.com/fabianvdW/OpenBench/'
 
 FRAMEWORK_DEFAULTS = {
 
@@ -30,7 +30,7 @@ FRAMEWORK_DEFAULTS = {
                 'proto'     : 'uci',
                 'nps'       : 750000,
                 'name'      : 'FabChess',
-                'source'    : 'https://github.com/fabianvdW/FabChess',
+                'source'    : 'https://github.com/fabianvdW/FabChess/',
 				'default'	: True,
                 'testmodes' : {
                     'stc'     : { 'threads' : 1, 'hash' :   8, 'timecontrol' : '10.0+0.1' },
