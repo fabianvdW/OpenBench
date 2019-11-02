@@ -102,7 +102,7 @@ def getEngine(data):
 
     # Build Engine using provided gcc and PGO flags
     env = os.environ.copy()
-    print("Env RUSTFLAGS	:", env['RUSTFLAGS'])
+    print("Env RUSTFLAGS	:", env.get('RUSTFLAGS'))
     env['RUSTFLAGS'] = '-C target-cpu=native'
     subprocess.Popen(
         ['cargo', 'build', '--release', '--bin', 'fabchess'],
