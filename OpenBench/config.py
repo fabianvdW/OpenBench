@@ -52,7 +52,12 @@ FRAMEWORK_DEFAULTS = {
                 'source'  : FRAMEWORK_REPO_URL + 'raw/master/Books/2moves_v1.pgn',
                 'default' : True,
             },
-
+            '2moves_v2.pgn' : {
+                'name'    : '2moves_v2.pgn',
+                'sha'     : 'c88dffb891e3cf126711792fb2e12a2fc97be3d995ba7bf44e49efe6f524b3bf',
+                'source'  : FRAMEWORK_REPO_URL + 'raw/master/Books/2moves_v2.pgn',
+                'default' : False,
+            },
             '8moves_v3.pgn' : {
                 'name'    : '8moves_v3.pgn',
                 'sha'     : '04fcce1488a94f3b7795cef6f74d89016eb278328897c1018e6162c5967273f5',
