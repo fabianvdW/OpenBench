@@ -105,7 +105,7 @@ def getEngine(data):
     print("Env RUSTFLAGS	:", env.get('RUSTFLAGS'))
     env['RUSTFLAGS'] = '-C target-cpu=native'
     subprocess.Popen(
-        ['cargo', 'build', '--release', '--bin', 'fabchess'],
+        ['cargo', 'build', '--release', '-p', 'uci-engine'],
         cwd='tmp/{0}/'.format(unzipname), env=env).wait()
 
     # Create the Engines directory if it does not exist
@@ -113,10 +113,10 @@ def getEngine(data):
         os.mkdir('Engines')
 
     # Move the compiled engine
-    if os.path.isfile('tmp/{0}/target/release/fabchess.exe'.format(unzipname)):
-        os.rename('tmp/{0}/target/release/fabchess.exe'.format(unzipname), 'Engines/{0}'.format(exe))
-    elif os.path.isfile('tmp/{0}/target/release/fabchess'.format(unzipname)):
-        os.rename('tmp/{0}/target/release/fabchess'.format(unzipname), 'Engines/{0}'.format(exe))
+    if os.path.isfile('tmp/{0}/target/release/uci-engine.exe'.format(unzipname)):
+        os.rename('tmp/{0}/target/release/uci-engine.exe'.format(unzipname), 'Engines/{0}'.format(exe))
+    elif os.path.isfile('tmp/{0}/target/release/uci-engine'.format(unzipname)):
+        os.rename('tmp/{0}/target/release/uci-engine'.format(unzipname), 'Engines/{0}'.format(exe))
 
     # Cleanup the unzipped zip file
     shutil.rmtree('tmp')
