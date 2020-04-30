@@ -144,16 +144,17 @@ def getEngine(data, engine):
     pathway = pathjoin('tmp/{0}/'.format(unzipname), data['test']['path'])
 
     # Check CUSTOM_SETTINGS for a custom configuration
-    command = ['make', 'EXE={0}'.format(engine['name'])]
+    if IS_WINDOWS:
+        link ="link={0}.exe".format(engine['name'])
+    else:
+        link = "link={0}".format(engine['name'])
+    command = ["cargo", "rustc","--release","-p","uci-engine", "--", "-C", "target-cpu=native", "--emit", link]
     if data['test']['engine'].upper() in CUSTOM_SETTINGS:
         config = CUSTOM_SETTINGS[data['test']['engine'].upper()]
         command.extend(config['args'])
-
     # Build the engine. If something goes wrong with the
     # compilation process, we will figure this out later on
     subprocess.Popen(command, cwd=pathway).wait()
-    print("") # Leave a new line to seperate output
-
     # Move the binary to the /Engines/ directory
     output = '{0}{1}'.format(pathway, engine['name'])
     destination = addExtension(pathjoin('Engines', engine['sha']).rstrip('/'))
@@ -551,6 +552,7 @@ def main():
     p.add_argument('-T', '--threads', help='Number of Threads', required=True)
     arguments = p.parse_args()
 
+    # Find out all the installed compilers and versions
     # All workload requests must be tied to a user and a machine.
     # We also pass a thread count to inform the server what tests this
     # machine can handle. We pass the osname in order to register machines
